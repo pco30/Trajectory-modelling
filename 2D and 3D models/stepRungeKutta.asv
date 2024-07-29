@@ -1,0 +1,28 @@
+function [znext] = stepRungeKutta(t, z, dt)
+% stepEuler    Compute one step using the Euler method
+% 
+%     ZNEXT = stepEuler(T,Z,DT) computes the state vector ZNEXT at the next
+%     time step T+DT
+
+% Calculate the state derivative from the current state
+
+
+A = dt * stateDeriv(z, t);
+
+[dxB,dyB] = stateDeriv(x+Ax/2, y+Ay/2, t+dt/2);
+
+Bx=dt*dxB;
+By=dt*dyB;
+
+[dxC,dyC] = stateDeriv(x+Bx/2, y+By/2, t+dt/2);
+
+Cx=dt*dxC;
+Cy=dt*dyC;
+
+[dxD,dyD] = stateDeriv(x+Cx, y+Cy, t+dt);
+
+Dx=dt*dxD;
+Dy=dt*dyD;
+
+znext = z + (A+2*Bx+2*Cx+Dx)/6;
+ynext = y + (Ay+2*By+2*Cy+Dy)/6;
